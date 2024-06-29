@@ -22,7 +22,11 @@ public class Main {
             new DataInserter().insertDriverRegisters(registers, connection);
         }
 
-
+        CommandExecutor.put("f1championship", new ChampionshipCommand());
+        Spark.port(8080);
+        Spark.get("/f1championship", (req, res) -> {
+            return CommandExecutor.with(req, res).execute("f1championship");
+        });
     }
 
 }
