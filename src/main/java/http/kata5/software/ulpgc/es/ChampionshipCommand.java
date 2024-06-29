@@ -18,7 +18,7 @@ public class ChampionshipCommand implements Command{
         return new Output() {
             @Override
             public String result() {
-                return "DAtos no encontrados o error en la entrada.";
+                return "Datos no encontrados o error en la entrada.";
             }
 
             @Override
@@ -53,6 +53,7 @@ public class ChampionshipCommand implements Command{
 
             String query = "SELECT * FROM f1championship WHERE year = ?";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, Integer.parseInt(year));
             ResultSet rs =  statement.executeQuery();
 
             while (rs.next()){
@@ -65,7 +66,7 @@ public class ChampionshipCommand implements Command{
                 result.append("<td>").append(rs.getFloat("points")).append("</td>");
                 result.append("</tr>");
             }
-
+            result.append("</table>");
         } catch (SQLException e){
             e.printStackTrace();
             return "Error al acceder a la base de datos,";
